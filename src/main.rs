@@ -1,3 +1,5 @@
+const DB_TXT: &'static str = "db.txt";
+
 struct Notebook {
     tasks: Vec<String>
 }
@@ -18,6 +20,16 @@ impl Notebook {
             println!("{} is at index {}", value, index);
         }
     }
+
+    fn save(&self) -> Result<(), std::io::Error> {
+        let mut content = String::new();
+
+        for (index, value) in  self.tasks.iter().enumerate() {
+            let record = format!("{}:\t{}\n", index, value);
+            content.push_str(&record)
+        }
+        std::fs::write(DB_TXT, content)
+    }
 }
 
 fn main() {
@@ -25,5 +37,8 @@ fn main() {
     let mut notebook = Notebook::new();
     notebook.add_task(task);
 
-    notebook.print();
+    match notebook.save() {
+        Ok(_) => println!("todo saved"),
+        Err(why) => println!("An error occurred: {}", why),
+    }
 }

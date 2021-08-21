@@ -3,3 +3,7 @@
 
 # jetbrains
 .idea
+
+# db local
+db.txt
+db.json
