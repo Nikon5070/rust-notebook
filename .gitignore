@@ -3,6 +3,7 @@
 
 # jetbrains
 .idea
+.vscode
 
 # db local
 db.txt
